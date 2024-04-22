@@ -1,4 +1,22 @@
 # LTSpice
+## Summing Amplifier
+
+A summing amplifier is an operational amplifier circuit used to combine multiple input voltages into a single output voltage that is the weighted sum of the input voltages, without inverting the signal. This type of amplifier is widely used in audio mixing and signal processing.
+
+### Equations
+
+The output voltage for a non-inverting summing amplifier can be calculated using the following formula:
+
+Output Voltage:
+$$V_{\text{out}} = V_{\text{ref}} + \left(\frac{R_f}{R_1} \cdot V_1 + \frac{R_f}{R_2} \cdot V_2 + \ldots + \frac{R_f}{R_n} \cdot V_n\right)$$
+
+
+### Circuit
+![Alt Text](./Summing-Amplifier/Summing-Amplifier.png)
+
+### Response
+![Alt Text](./Summing-Amplifier/Vout-Vin1-Vin2.png)
+
 
 ## Buck-Boost Converter
 
