@@ -1,4 +1,57 @@
 # LTSpice
+
+## Passive Twin Notch Filter
+As explained in in [1, p. 414], a passive twin notch filter utilizes a pair of RC networks designed to cancel out a specific frequency, known as the notch frequency. This filter configuration is ideal for applications where elimination of a specific interference frequency is critical, such as in audio processing and radio frequency applications.
+
+### Equations
+
+Notch Frequency:
+$$f_c = \frac{1}{2\pi RC}$$
+
+Where:
+- $f_c$ is the notch (cutoff) frequency where the attenuation is maximum.
+- $R$ represents the resistance in ohms.
+- $C$ represents the capacitance in farads.
+
+The filter achieves its notch effect by summing two signals that are 180° out of phase at the cutoff frequency. This results in a destructive interference at $f_c$, effectively attenuating the signal at this frequency.
+
+### Circuit
+In the twin T-notch filter configuration, components are related as follows:
+
+- Resistors $R_1$ and $R_2$ are equal to $R$.
+- Capacitors $C_1$ and $C_2$ are equal to $C$.
+- Resistor $R_3$ is half the resistance of $R$, $R_3 = \frac{R}{2}$
+- Capacitor $C_3$ is twice the capacitance of $C$, $C_3 = 2C$
+
+
+![Alt Text](./Passive-Twin-T-Notch-Filter/Passive-Twin-T-Notch-Filter.png)
+
+### Response
+![Alt Text](./Passive-Twin-T-Notch-Filter/Passive-Twin-T-Notch-Filter-Vout-Frequency-Response.png)
+
+## Differential Amplifier
+A differential amplifier is an operational amplifier circuit that amplifies the difference between two input voltages as demonstrated in [1, p. 348]. This type of amplifier is crucial for applications where the suppression of common-mode signals and the amplification of differential signals are required, such as in sensor signal conditioning and data acquisition systems.
+
+### Equations
+
+Output Voltage:
+$$V_{\text{out}} = (Vin_2 - Vin_1) \cdot \left(\frac{R_f}{R_1}\right)$$
+
+Where:
+- $Vin_1$ and $Vin_2$ are the input voltages at the inverting and non-inverting inputs, respectively.
+- $R_f$ is the feedback resistor connected between the output and the inverting input.
+- $R_1$ represents the resistor connected to the inverting input.
+- $R_1$=$R_2$=$R_3$
+
+The gain of the differential amplifier, which is the factor by which the difference between the input voltages is amplified, can be expressed as:
+$$\text{Gain} = \frac{R_f}{R_1}$$
+
+### Circuit
+![Alt Text](./Differential-Amplifier/Differential-Amplifier.png)
+
+### Response
+![Alt Text](./Differential-Amplifier/Differential-Amplifier-Vout_Vin1_Vin2.png)
+
 ## Summing Amplifier
 
 A summing amplifier is an operational amplifier circuit used to combine multiple input voltages into a single output voltage that is the weighted sum of the input voltages, without inverting the signal. This type of amplifier is widely used in audio mixing and signal processing.
@@ -83,10 +136,6 @@ $$R_b = \frac{R_f}{2}$$
 ![Alt Text](./Wein-Bridge-Oscillator/Vout.png)
 
 
+# References
 
-
-
-
-
-
-
+[1] Horowitz, P., and Hill, W., 2015. The Art of Electronics. 3rd ed. Cambridge: Cambridge University Press.
