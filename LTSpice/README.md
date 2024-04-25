@@ -1,5 +1,34 @@
 # LTSpice
 
+## 555 Sawtooth Oscillator
+As explained by [1, p430], the 555 sawtooth oscillator uses the 555 timer IC to generate a repeating sawtooth waveform. This configuration exploits the charging and discharging cycles of a capacitor through the 555 timer, providing an adjustable frequency and amplitude.
+
+### Equation
+The operational characteristics of the 555 sawtooth oscillator are described by the following equations:
+
+Voltage at the base:
+$$V_b = V_{\text{in}} \left(\frac{R_2}{R_1 + R_2}\right)$$
+
+Voltage at the emitter:
+$$V_e = V_b - V_{be} = V_b + 0.7$$
+
+Current through the emitter:
+$$I = \left(\frac{V_{\text{in}} - V_e}{R_e}\right)$$
+
+Rise time:
+$$T_{\text{rise}} = \left(\frac{C_1 \cdot V_{\text{in}}}{3 \cdot I}\right)$$
+
+Fall time:
+$$T_{\text{fall}} = R_4 \cdot C_1 \cdot \ln(2)$$
+
+
+
+### Circuit
+![Alt Text](./555-Sawtooth-Oscillator/555-Sawtooth-Oscillator.png)
+
+### Response
+![Alt Text](./555-Sawtooth-Oscillator/555-Sawtooth-Oscillator-Vout.png)
+
 ## Passive Twin Notch Filter
 As explained in in [1, p. 414], a passive twin notch filter utilizes a pair of RC networks designed to cancel out a specific frequency, known as the notch frequency. This filter configuration is ideal for applications where elimination of a specific interference frequency is critical, such as in audio processing and radio frequency applications.
 
