@@ -1,9 +1,93 @@
 # LTSpice
+## Biquad Active Filter
+As described in [1, p411], a biquad filter is an active filter circuit using operational amplifiers, capacitors, and resistors to achieve a versatile and precise frequency response. This second-order filter configuration allows for easy adjustment of parameters like quality factor, gain, and bandwidth, making it ideal for various audio and signal processing applications.
+
+### Equations
+Center Frequency:
+$$f_0 = \frac{1}{2\pi R_F C}$$
+
+Quality Factor:
+$$Q = \frac{f_0}{BW}$$
+
+Bandwidth:
+$$BW = \frac{1}{2\pi R_B C}$$
+
+Resistor for Gain:
+$$R_G = \frac{R_B}{G}$$
+
+Resistor for Bandwidth:
+$$R_B = \frac{1}{2\pi BW C}$$
+
+Resistor for Center Frequency:
+$$R_F = \frac{1}{2\pi f_0 C}$$
+
+Gain:
+$$G = \frac{R_B}{R_G}$$
+
+
+
+### Circuit
+As outlined in [1, p411], the design procedure is as follows: 
+1. Choose an op-amp whose bandwidth $f_T$ is at least 10 to 20 times the product of the gain $G$ and the center frequency $f_0$.
+   $$ f_T \geq 10 \times G \times f_0 $$
+
+2. Pick a round-number capacitor value in the vicinity of:
+   $$C = \frac{10}{f_0} \text{μF}$$
+   where $f_0$ is in Hz.
+
+3. Use the desired center frequency to calculate the corresponding $R_F$ from Equation 6.15:
+   $$R_F = \frac{1}{2\pi f_0 C}$$
+
+4. Use the desired bandwidth to calculate $R_B$:
+   $$R_B = \frac{1}{2\pi BW C}$$
+
+5. Use the desired band-center gain to calculate $R_G$:
+   $$R_G = \frac{R_B}{G}$$
+
+
+| Component | Description           | Circuit Mapping |
+|-----------|-----------------------|-----------------|
+| $R_F$ | Resistor for $f_0$| $R_1$, $R_2$ |
+| $C$   | Capacitor             | $C_1$, $C_2$ |
+| $R_G$ | Resistor for Gain     | $R5$         |
+| $R_B$ | Resistor for Bandwidth| $R_3$        |
+  
+![Alt Text](./Biquad-Active-Filter/Biquad-Active-Filter.png)
+
+### Response
+![Alt Text](./Biquad-Active-Filter/Biquad-Active-Filter-Response.png)
+
+## Active Low-Pass Buttersworth Filter
+As described in [1, p406], an active low-pass Butterworth filter typically incorporates operational amplifiers to achieve a maximally flat frequency response in the passband. This configuration utilizes a series of capacitors and resistors to form a filter circuit that attenuates higher frequencies above a certain cutoff. The design ensures minimal ripple in the passband, maintaining a smooth response across the frequency spectrum.
+
+Cutoff Frequency:
+$$RC = \frac{1}{2 \pi c_n f_c}$$
+
+Where:
+- $RC$ is the time constant of the filter.
+- $c_n$ is a normalization constant derived from the Butterworth polynomial which defines the filter's frequency response. It is chosen based on the desired filter order and the characteristics of the passband, ensuring the filter's frequency response is as flat as possible within the passband (see [1, p408]).
+- $f_c$ is the cutoff frequency, below which signals pass with little attenuation.
+
+The equation describes how the product of resistance ($R$) and capacitance ($C$) determines the cutoff frequency, which is critical in defining the bandwidth of the filter.
+
+### Circuit
+In the active Butterworth low-pass filter configuration, components are related as follows:
+
+- Resistors $R_1$, $R_2$, and $R_4$ are equal, denoted by $R$.
+- Capacitors $C_1$ and $C_2$ are equal, denoted by $C$.
+- Resistor $R_3$ is adjusted based on the gain factor $K$, with $R_3 = (K-1)R$.
+
+
+
+![Alt Text](./Active-Low-Pass-Buttersworth-Filter/Active-Low-Pass-Buttersworth-Filter.png)
+
+### Response
+![Alt Text](./Active-Low-Pass-Buttersworth-Filter/Active-Low-Pass-Buttersworth-Filter-Vout.png)
 
 ## 555 Sawtooth Oscillator
 As explained by [1, p430], the 555 sawtooth oscillator uses the 555 timer IC to generate a repeating sawtooth waveform. This configuration exploits the charging and discharging cycles of a capacitor through the 555 timer, providing an adjustable frequency and amplitude.
 
-### Equation
+### Equations
 The operational characteristics of the 555 sawtooth oscillator are described by the following equations:
 
 Voltage at the base:
@@ -24,6 +108,7 @@ $$T_{\text{fall}} = R_4 \cdot C_1 \cdot \ln(2)$$
 
 
 ### Circuit
+
 ![Alt Text](./555-Sawtooth-Oscillator/555-Sawtooth-Oscillator.png)
 
 ### Response
@@ -152,10 +237,10 @@ $$f_{\text{Hz}} = \frac{1}{2\pi R C}$$
 Stable Oscillation Condition:
 $$R_b = \frac{R_f}{2}$$
 
-Calculate \( $R_f$ \):
+Calculate $ $R_f$ $:
 $$R_f =\frac{1}{2 \pi  f_{\text{Hz}} C }$$
 
-Calculate \( $R_b$ \):
+Calculate $ $R_b$ $:
 $$R_b = \frac{R_f}{2}$$
 
 ### Circuit
