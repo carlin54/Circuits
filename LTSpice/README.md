@@ -1,4 +1,25 @@
 # LTSpice
+## Center-Tapped Full-Wave Rectifier
+As described in [1, p33], a split-supply center-tapped full-wave rectifier is an efficient circuit that utilizes both halves of the AC input waveform to generate dual polarity outputs (positive and negative voltages). This configuration often includes a transformer with a center tap and uses diodes to rectify the AC input, making it ideal for applications requiring dual supply voltages such as operational amplifiers and mixed-signal processing circuits.
+
+RMS Output Voltage (Vrms)
+$$V_{\text{rms}} = \frac{V_{\text{sec}}}{\sqrt{2}}$$
+
+Ripple Voltage (V_ripple)
+$$V_{\text{ripple}} = \frac{I_{\text{load}}}{f C R_{\text{load}}}$$
+
+where:
+- $I_{\text{load}}$ is the load current,
+- $f$ is the frequency of the AC supply,
+- $C$ is the capacitance of the filter capacitor,
+- $R_{\text{load}}$ is the load resistance.
+
+### Circuit
+![Alt Text](./Center-Tapped-Full-Wave-Rectifier/Center-Tapped-Full-Wave-Rectifier.png)
+
+### Response
+![Alt Text](./Center-Tapped-Full-Wave-Rectifier/Center-Tapped-Full-Wave-Rectifier-Response.png)
+
 ## Biquad Active Filter
 As described in [1, p411], a biquad filter is an active filter circuit using operational amplifiers, capacitors, and resistors to achieve a versatile and precise frequency response. This second-order filter configuration allows for easy adjustment of parameters like quality factor, gain, and bandwidth, making it ideal for various audio and signal processing applications.
 
