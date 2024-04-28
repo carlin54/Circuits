@@ -1,4 +1,40 @@
 # LTSpice
+## NE555 Voltage Controlled Pulse Width Oscillator
+As detailed in [2, p13-17], the NE555 Voltage Controlled Pulse Width Oscillator modifies pulse widths by applying an external voltage to the control terminal. This adjustment allows for flexible pulse duration control, useful in applications such as communication systems and variable speed drives.
+
+
+### Equations
+High-Level Time Duration:
+$$ t_H = 0.693(R_A + 2R_B)C $$
+
+Low-Level Time Duration:
+$$ t_L = 0.693 R_B C $$
+
+Total Period:
+$$ t_H + t_L = 0.693(R_A + 2R_B)C $$
+
+Frequency:
+$$ f \approx \frac{1.44}{(R_A + 2R_B)C} $$
+
+Output Drive Duty Cycle:
+$$ \frac{t_L}{t_H + t_L} $$
+
+Output Waveform Duty Cycle:
+$$ \frac{t_H}{t_H + t_L} = 1 - \frac{R_B}{R_A + 2R_B} $$
+
+Low-to-High Ratio:
+$$ \frac{t_L}{t_H} = \frac{R_B}{R_A + R_B} $$
+
+
+
+### Circuit
+To ensure optimal performance, select $RA$​ and $C$ such that $RA \times C$ exceeds the [maximum normal input high time]; while RLRL​ enhances $V_{OH}$, it is not mandatory for TTL compatibility [2, p17].
+
+![Alt Text](./NE555-Voltage-Controlled-Pulse-Width-Modulation-Oscillator/NE555-Voltage-Controlled-Pulse-Width-Modulation-Oscillator.png)
+
+### Response
+![Alt Text](./NE555-Voltage-Controlled-Pulse-Width-Modulation-Oscillator/NE555-Voltage-Controlled-Pulse-Width-Modulation-Oscillator-Response.png)
+
 ## Center-Tapped Full-Wave Rectifier
 As described in [1, p33], a split-supply center-tapped full-wave rectifier is an efficient circuit that utilizes both halves of the AC input waveform to generate dual polarity outputs (positive and negative voltages). This configuration often includes a transformer with a center tap and uses diodes to rectify the AC input, making it ideal for applications requiring dual supply voltages such as operational amplifiers and mixed-signal processing circuits.
 
@@ -274,3 +310,6 @@ $$R_b = \frac{R_f}{2}$$
 # References
 
 [1] Horowitz, P., and Hill, W., 2015. The Art of Electronics. 3rd ed. Cambridge: Cambridge University Press.
+
+[2] Texas Instruments, 2024. NE555 Precision Timers. [Online] Available at: https://www.ti.com/lit/ds/symlink/ne555.pdf [Accessed 27 April 2024].
+
