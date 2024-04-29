@@ -1,4 +1,19 @@
 # LTSpice
+
+## NPN Voltage Controlled Gain Amplifier 
+A voltage controlled gain amplifier (VCGA) adjusts its output signal amplitude in response to a control voltage. This feature allows precise amplification adjustments, making VCGAs useful in audio processing, radio frequency modulation, and automatic gain control in communications.
+
+### Equations
+Maximum Gain:
+$$A = 1 + \frac{R_1}{R_2}$$
+
+### Circuit
+![Alt Text](./NPN-Voltage-Controlled-Amplifier/NPN-Voltage-Controlled-Amplifier.png)
+
+### Response
+![Alt Text](./NPN-Voltage-Controlled-Amplifier/NPN-Voltage-Controlled-Amplifier-Response.png)
+
+
 ## NE555 Voltage Controlled Pulse Width Oscillator
 As detailed in [2, p13-17], the NE555 Voltage Controlled Pulse Width Oscillator modifies pulse widths by applying an external voltage to the control terminal. This adjustment allows for flexible pulse duration control, useful in applications such as communication systems and variable speed drives.
 
