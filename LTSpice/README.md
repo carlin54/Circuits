@@ -1,4 +1,17 @@
 # LTSpice
+## NPN Colpits Oscillator
+As described in [3], an NPN Colpitts oscillator uses an NPN bipolar junction transistor to sustain oscillations in an LC tank circuit, as described in oscillator design literature. This simple configuration generates high-frequency signals for applications in RF communication, electronic testing, and digital clock generation. The oscillator's frequency can be adjusted by varying the inductor and capacitor values, enhancing its versatility in electronic applications.
+
+### Equations
+Oscillation Frequency: 
+$$f = \frac{1}{2\pi \sqrt{LC}}$$
+
+### Circuit
+![Alt Text](./NPN-Colpitts-Oscillator/NPN-Colpitts-Oscillator.png)
+
+### Response
+![Alt Text](./NPN-Colpitts-Oscillator/NPN-Colpitts-Oscillator-Response.png)
+
 
 ## NPN Voltage Controlled Gain Amplifier 
 A voltage controlled gain amplifier (VCGA) adjusts its output signal amplitude in response to a control voltage. This feature allows precise amplification adjustments, making VCGAs useful in audio processing, radio frequency modulation, and automatic gain control in communications.
@@ -327,4 +340,6 @@ $$R_b = \frac{R_f}{2}$$
 [1] Horowitz, P., and Hill, W., 2015. The Art of Electronics. 3rd ed. Cambridge: Cambridge University Press.
 
 [2] Texas Instruments, 2024. NE555 Precision Timers. [Online] Available at: https://www.ti.com/lit/ds/symlink/ne555.pdf [Accessed 27 April 2024].
+
+[3] M. Azadmehr, I. Paprotny, and L. Marchetti, "100 Years of Colpitts Oscillators: Ontology Review of Common Oscillator Circuit Topologies," IEEE Circuits and Systems Magazine, vol. 8, no. 4, pp. 1531-636X, Fourth Quarter 2020.
 
