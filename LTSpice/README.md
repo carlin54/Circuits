@@ -1,4 +1,27 @@
 # LTSpice
+## Current Mirror
+A current mirror is an analog circuit that copies the current flowing through one part of the circuit (the reference side) to another (the output side). It is commonly used in integrated circuits for biasing and current control. This circuit uses two PNP transistors to form the current mirror with resistors controlling and stabilizing the current flow [1, p101].
+
+### Equations
+
+Output Current (Ideal Case):
+$$ I_{\text{out}} = I_{\text{ref}} $$
+Where $I_{\text{ref}}$ is the current through the reference transistor (Q1), determined by $V_1$ and $Rp$.
+
+Output Impedance:
+$$ r_{\text{out}} = \frac{V_A}{I_{\text{out}}} $$
+Where $V_A$ is the early voltage of the transistor.
+
+Base Current Compensation (to improve accuracy):
+$$ I_{\text{out}} \approx I_{\text{ref}} - I_B $$
+Where $I_B$ is the base current of the output transistor (Q2).
+
+### Circuit
+![Alt Text](./Current-Mirror/Current-Mirror.png)
+
+### Response
+![Alt Text](./Current-Mirror/Current-Mirror-Response.png)
+
 ## NPN Colpits Oscillator
 As described in [3], an NPN Colpitts oscillator uses an NPN bipolar junction transistor to sustain oscillations in an LC tank circuit, as described in oscillator design literature. This simple configuration generates high-frequency signals for applications in RF communication, electronic testing, and digital clock generation. The oscillator's frequency can be adjusted by varying the inductor and capacitor values, enhancing its versatility in electronic applications.
 
