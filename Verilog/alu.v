@@ -11,7 +11,7 @@ always @(a_in or b_in or op_in) begin
 		3'b000: y_out = a_in + b_in;
 		3'b001: y_out = a_in - b_in;
 		3'b010: y_out = a_in * b_in;
-		3'b101: y_out = a_in / b_in;
+		3'b100: y_out = (b_in == 0) ? 0 : a_in / b_in;
   	endcase
 	z_out = (y_out == 0) ? 1'b1 : 1'b0;
 end
