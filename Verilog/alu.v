@@ -1,19 +1,25 @@
-module ALU(
-	   input [31:0] a_in,
-	   input [31:0] b_in,
-	   input [2:0] op_in,
-	   output reg [31:0] y_out,
-	   output reg z_out
+module ALU #(
+	parameter WIDTH=8
+)(
+	   input [WIDTH-1:0] in_a,
+	   input [WIDTH-1:0] in_b,
+	   input [2:0] opcode,
+	   output reg [WIDTH-1:0] alu_out,
+	   output reg a_is_zero
 );
 
-always @(a_in or b_in or op_in) begin
-	case (op_in)
-		3'b000: y_out = a_in + b_in;
-		3'b001: y_out = a_in - b_in;
-		3'b010: y_out = a_in * b_in;
-		3'b100: y_out = (b_in == 0) ? 0 : a_in / b_in;
-  	endcase
-	z_out = (y_out == 0) ? 1'b1 : 1'b0;
+always @(in_a or in_b or opcode) begin
+	case (opcode)
+		3'b000: alu_out = in_a; 		// HLT
+		3'b001: alu_out = in_a; 		// SKZ
+		3'b010: alu_out = in_a + in_b; 	// ADD
+		3'b011: alu_out = in_a & in_b; 	// AND
+		3'b100: alu_out = in_a ^ in_b; 	// XOR
+		3'b101: alu_out = in_b; 		// LDA
+		3'b110: alu_out = in_a; 		// STO
+		3'b111: alu_out = in_a; 		// JMP
+	endcase
+	a_is_zero = (in_a === {WIDTH{1'b0}}) ? 1'b1 : 1'b0;
 end
 
 endmodule

@@ -1,117 +1,114 @@
 module ALU_TB;
-	reg [0:31] a;
-	reg [0:31] b;
-	reg [0:2] op;
-	wire [0:31] y;
-	wire z;
+	reg [0:3] in_a;
+	reg [0:3] in_b;
+	reg [0:2] opcode;
+	wire [0:3] alu_out;
+	wire a_is_zero;
 
-	ALU alu
-	(
-		.a_in(a),
-		.b_in(b),
-		.op_in(op),
-		.y_out(y),
-		.z_out(z)
+	ALU #(
+		.WIDTH(4)
+	) alu (
+		.in_a(in_a),
+		.in_b(in_b),
+		.opcode(opcode),
+		.alu_out(alu_out),
+		.a_is_zero(a_is_zero)
 	);
 
 	initial
 
 	begin
-		// Addition
-		a=1;
-		b=1;
-		op=3'b000;
+		// HLT
+		in_a=4'b0010;
+		in_b=4'b0100;
+		opcode=3'b000;
 		# 100;
-
-		if (y == 2 && z == 0)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_a && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-
-		a=0;
-		b=0;
-		op=3'b000;
+		// SKZ
+		in_a=4'b0010;
+		in_b=4'b0100;
+		opcode=3'b001;
 		# 100;
-		if (y == 0 && z == 1)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_a && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-
-		// Subtraction
-		a=100;
-		b=50;
-		op=3'b001;
+		// ADD
+		in_a=4'b0001;
+		in_b=4'b0011;
+		opcode=3'b010;
 		# 100;
-
-		if (y == 50 && z == 0)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === (in_a + in_b) && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-
-		a=50;
-		b=50;
-		op=3'b001;
+		// AND
+		in_a=4'b0110;
+		in_b=4'b0100;
+		opcode=3'b011;
 		# 100;
-		if (y == 0 && z == 1)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === (in_a & in_b) && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("XOR FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-
-		// Multiplication
-		a=25;
-		b=25;
-		op=3'b010;
+		// XOR
+		in_a=4'b0110;
+		in_b=4'b0100;
+		opcode=3'b100;
 		# 100;
-
-		if (y == 625 && z == 0)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === (in_a ^ in_b) && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("XOR FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
 
-		a=50;
-		b=0;
-		op=3'b010;
+		// LDA
+		in_a=4'b0110;
+		in_b=4'b0100;
+		opcode=3'b101;
 		# 100;
-		if (y == 0 && z == 1)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_b && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
 
-		// Division
-		a=50;
-		b=5;
-		op=3'b100;
+		// STO
+		in_a=4'b0110;
+		in_b=4'b0100;
+		opcode=3'b110;
 		# 100;
-
-		if (y == 10 && z == 0)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_a && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-
-		a=50;
-		b=0;
-		op=3'b100;
+		// JMP
+		in_a=4'b0110;
+		in_b=4'b0100;
+		opcode=3'b111;
 		# 100;
-		if (y == 0 && z == 1)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_a && a_is_zero == 0)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
-		a=0;
-		b=50;
-		op=3'b100;
+		// A is zero
+		in_a=4'b0000;
+		in_b=4'b0100;
+		opcode=3'b111;
 		# 100;
-		if (y == 0 && z == 1)
-			$display("PASS: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+		if (alu_out === in_a && a_is_zero == 1)
+			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 		else
-			$display("FAIL: (a,%d), (b,%d), (op,%d), (y,%d), (z,%d)",a,b,op,y,z);
+			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
 
 	end
 
