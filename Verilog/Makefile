@@ -7,7 +7,7 @@ SIMULATOR=vvp
 # Designate the output file
 OUTPUT=design.vvp
 # List all Verilog source files
-SOURCES=alu.v alu_tb.v multiplexor.v multiplexor_tb.v driver.v driver_tb.v controller.v controller_tb.v register.v register_tb.v memory.v memory_tb.v counter.v counter_tb.v latchrs.v latchrs_tb.v priority_n.v priority_n_tb.v dffrs.v dffrs_tb.v dff.v dff_tb.v fifo.v fifo_tb.v
+SOURCES=alu.v alu_tb.v multiplexor.v multiplexor_tb.v driver.v driver_tb.v controller.v controller_tb.v register.v register_tb.v memory.v memory_tb.v counter.v counter_tb.v latchrs.v latchrs_tb.v priority_n.v priority_n_tb.v dffrs.v dffrs_tb.v dff.v dff_tb.v fifo.v fifo_tb.v l1ca_code_generator.v l1ca_code_generator_tb.v frequency_divider.v frequency_divider_tb.v
 
 # Define the waveform output file
 WAVEFORM=waveform.vcd
