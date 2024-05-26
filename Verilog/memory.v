@@ -1,4 +1,4 @@
-module Memory #(
+module memory #(
     parameter ADDR_WIDTH = 5,
     parameter DATA_WIDTH = 8
 )(
@@ -9,7 +9,7 @@ module Memory #(
     inout wire [DATA_WIDTH-1:0] data
 );
 
-    reg [DATA_WIDTH-1:0] ram [(1<<ADDR_WIDTH)-1:0];
+    reg [DATA_WIDTH-1:0] ram [0:2**ADDR_WIDTH-1];
 
     reg [DATA_WIDTH-1:0] data_out;
     wire [DATA_WIDTH-1:0] data_in = data;

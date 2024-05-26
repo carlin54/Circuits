@@ -1,4 +1,4 @@
-module Multiplexor #(
+module multiplexor #(
 	parameter DATA_WIDTH = 5
 )(
 	input wire [DATA_WIDTH-1:0] in0,

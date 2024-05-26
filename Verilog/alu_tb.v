@@ -1,13 +1,13 @@
-module ALU_TB;
-	reg [0:3] in_a;
-	reg [0:3] in_b;
-	reg [0:2] opcode;
-	wire [0:3] alu_out;
+module alu_tb;
+	reg [7:0] in_a;
+	reg [7:0] in_b;
+	reg [2:0] opcode;
+	wire [7:0] alu_out;
 	wire a_is_zero;
 
-	ALU #(
-		.WIDTH(4)
-	) alu (
+	alu #(
+		.WIDTH(8)
+	) DUT (
 		.in_a(in_a),
 		.in_b(in_b),
 		.opcode(opcode),
@@ -15,101 +15,48 @@ module ALU_TB;
 		.a_is_zero(a_is_zero)
 	);
 
-	initial
+	task assert;
+		input [7:0] exp_alu_out;
+		input exp_a_is_zero;
 
-	begin
-		// HLT
-		in_a=4'b0010;
-		in_b=4'b0100;
-		opcode=3'b000;
-		# 100;
-		if (alu_out === in_a && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
-		// SKZ
-		in_a=4'b0010;
-		in_b=4'b0100;
-		opcode=3'b001;
-		# 100;
-		if (alu_out === in_a && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
-		// ADD
-		in_a=4'b0001;
-		in_b=4'b0011;
-		opcode=3'b010;
-		# 100;
-		if (alu_out === (in_a + in_b) && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
-		// AND
-		in_a=4'b0110;
-		in_b=4'b0100;
-		opcode=3'b011;
-		# 100;
-		if (alu_out === (in_a & in_b) && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("XOR FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
-		// XOR
-		in_a=4'b0110;
-		in_b=4'b0100;
-		opcode=3'b100;
-		# 100;
-		if (alu_out === (in_a ^ in_b) && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("XOR FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
+		if (alu_out === exp_alu_out && a_is_zero === exp_a_is_zero) begin
+			//$display("PASS: (in_a, %d), (in_b, %d), (opcode, %d), (alu_out, %d), (exp_alu_out, %d), (a_is_zero, %d), (exp_a_is_zero, %d)", in_a, in_b, opcode, alu_out, exp_alu_out, a_is_zero, exp_a_is_zero);
+		end else begin
+			$display("FAIL: (in_a, %d), (in_b, %d), (opcode, %d), (alu_out, %d), (exp_alu_out, %d), (a_is_zero, %d), (exp_a_is_zero, %d)", in_a, in_b, opcode, alu_out, exp_alu_out, a_is_zero, exp_a_is_zero);
+		end
 
 
-		// LDA
-		in_a=4'b0110;
-		in_b=4'b0100;
-		opcode=3'b101;
-		# 100;
-		if (alu_out === in_b && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
+	endtask;
 
+	localparam [2:0] OP_HLT = 3'b000;
+	localparam [2:0] OP_SKZ = 3'b001;
+	localparam [2:0] OP_ADD = 3'b010;
+	localparam [2:0] OP_AND = 3'b011;
+	localparam [2:0] OP_XOR = 3'b100;
+	localparam [2:0] OP_LDA = 3'b101;
+	localparam [2:0] OP_STO = 3'b110;
+	localparam [2:0] OP_JMP = 3'b111;
 
-		// STO
-		in_a=4'b0110;
-		in_b=4'b0100;
-		opcode=3'b110;
-		# 100;
-		if (alu_out === in_a && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
+	initial	begin
+		in_a=8'b01010101; in_b=8'b10101010; opcode=OP_HLT; #100; assert(in_a, 0);
+		in_a=8'b10101010; in_b=8'b01010101; opcode=OP_SKZ; #100; assert(in_a, 0);
+		in_a=8'b00001111; in_b=8'b01011111; opcode=OP_ADD; #100; assert(in_a + in_b, 0);
+		in_a=8'b11001100; in_b=8'b11110000; opcode=OP_AND; #100; assert(in_a & in_b, 0);
+		in_a=8'b00110011; in_b=8'b00001111; opcode=OP_XOR; #100; assert(in_a ^ in_b, 0);
+		in_a=8'b00000001; in_b=8'b11111111; opcode=OP_LDA; #100; assert(in_b, 0);
+		in_a=8'b11111111; in_b=8'b00000000; opcode=OP_STO; #100; assert(in_a, 0);
+		in_a=8'b11111111; in_b=8'b00000000; opcode=OP_JMP; #100; assert(in_a, 0);
+		in_a=8'b00000000; in_b=8'b00000000; opcode=OP_JMP; #100; assert(in_a, 1);
 
-		// JMP
-		in_a=4'b0110;
-		in_b=4'b0100;
-		opcode=3'b111;
-		# 100;
-		if (alu_out === in_a && a_is_zero == 0)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
-		// A is zero
-		in_a=4'b0000;
-		in_b=4'b0100;
-		opcode=3'b111;
-		# 100;
-		if (alu_out === in_a && a_is_zero == 1)
-			$display("PASS: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-		else
-			$display("FAIL: (in_a,%d), (in_b,%d), (opcode,%d), (alu_out,%d), (a_is_zero,%d)",in_a,in_b,opcode,alu_out,a_is_zero);
-
+		in_a=8'h42; in_b=8'h86; opcode=OP_HLT; #100; assert(8'h42, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_SKZ; #100; assert(8'h42, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_ADD; #100; assert(8'hC8, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_AND; #100; assert(8'h02, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_XOR; #100; assert(8'hC4, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_LDA; #100; assert(8'h86, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_STO; #100; assert(8'h42, 1'b0);
+		in_a=8'h42; in_b=8'h86; opcode=OP_JMP; #100; assert(8'h42, 1'b0);
+		in_a=8'h00; in_b=8'h86; opcode=OP_JMP; #100; assert(8'h00, 1'b1);
 	end
 
 endmodule

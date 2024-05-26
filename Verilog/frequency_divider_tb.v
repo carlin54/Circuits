@@ -16,7 +16,7 @@ module frequency_divider_tb;
 		if (exp_out_clk !== out_clk) begin
 			$display("FAIL: (rst,%b), (out_clk,%b), (exp_clk,%b)", rst, out_clk, exp_out_clk);
 		end else begin
-			$display("PASS: (rst,%b), (out_clk,%b), (exp_clk,%b)", rst, out_clk, exp_out_clk);
+			// $display("PASS: (rst,%b), (out_clk,%b), (exp_clk,%b)", rst, out_clk, exp_out_clk);
 		end
 	endtask
 

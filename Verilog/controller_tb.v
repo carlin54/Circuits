@@ -1,4 +1,4 @@
-module Controller_TB;
+module controller_tb;
 	reg [2:0] opcode;
   	reg [2:0] phase;
 	reg zero;
@@ -11,13 +11,11 @@ module Controller_TB;
   	wire data_e;
   	wire ld_ac;
   	wire wr;
-  	wire rst;
 
-	Controller controller(
+	controller DUT(
 		.zero(zero),
 		.phase(phase),
 		.opcode(opcode),
-		.rst(rst),
 		.sel(sel),
 		.rd(rd),
 		.ld_ir(ld_ir),
@@ -87,7 +85,7 @@ module Controller_TB;
 		phase=PHASE_OP_ALU_OP; 	#100 expect(9'b000000000);
 		zero=1; 				#100 expect(9'b000100000);
 		phase=PHASE_STORE; 		#100 expect(9'b000000000);
-		$display("PASS: (opcode, OP_SKZ, %d)", opcode);
+		//$display("PASS: (opcode, OP_SKZ, %d)", opcode);
 
 		opcode=OP_ADD; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -98,7 +96,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b010000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b010000000);
 		phase=PHASE_STORE; 		#100 expect (9'b010000010);
-		$display("PASS: (opcode, OP_ADD, %d)", opcode);
+		//$display("PASS: (opcode, OP_ADD, %d)", opcode);
 
 		opcode=OP_AND; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -109,7 +107,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b010000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b010000000);
 		phase=PHASE_STORE; 		#100 expect (9'b010000010);
-		$display("PASS: (opcode, OP_AND, %d)", opcode);
+		//$display("PASS: (opcode, OP_AND, %d)", opcode);
 
 		opcode=OP_XOR; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -120,7 +118,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b010000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b010000000);
 		phase=PHASE_STORE; 		#100 expect (9'b010000010);
-		$display("PASS: (opcode, OP_XOR, %d)", opcode);
+		//$display("PASS: (opcode, OP_XOR, %d)", opcode);
 
 		opcode=OP_LDA; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -131,7 +129,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b010000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b010000000);
 		phase=PHASE_STORE; 		#100 expect (9'b010000010);
-		$display("PASS: (opcode, OP_LDA, %d)", opcode);
+		//$display("PASS: (opcode, OP_LDA, %d)", opcode);
 
 		opcode=OP_STO; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -142,7 +140,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b000000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b000000100);
 		phase=PHASE_STORE; 		#100 expect (9'b000000101);
-		$display("PASS: (opcode, OP_STO, %d)", opcode);
+		//$display("PASS: (opcode, OP_STO, %d)", opcode);
 
 		opcode=OP_JMP; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect (9'b100000000);
@@ -153,7 +151,7 @@ module Controller_TB;
 		phase=PHASE_OP_FETCH; 	#100 expect (9'b000000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect (9'b000001000);
 		phase=PHASE_STORE; 		#100 expect (9'b000001000);
-		$display("PASS: (opcode, OP_JMP, %d)", opcode);
+		//$display("PASS: (opcode, OP_JMP, %d)", opcode);
 
 	end
 
