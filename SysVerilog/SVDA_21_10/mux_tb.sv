@@ -1,50 +1,53 @@
-module register_tb;
+module mux_tb;
 
-    parameter WIDTH = 4;
+	parameter WIDTH = 4;
 
-    logic clk;
-    logic reset;
-    logic [WIDTH-1:0] d;
-    logic [WIDTH-1:0] q;
+	logic [WIDTH-1:0] in_a;
+	logic [WIDTH-1:0] in_b;
+	logic sel_a;
+	logic [WIDTH-1:0] out;
 
-    register #(
-        .WIDTH(WIDTH)
-    ) DUT (
-        .clk(clk),
-        .reset(reset),
-        .d(d),
-        .q(q)
-    );
+	mux #(
+		.WIDTH(WIDTH)
+	) DUT (
+		.in_a(in_a),
+		.in_b(in_b),
+		.sel_a(sel_a),
+		.out(out)
+	);
 
 
     function void assert_equal(input logic [WIDTH-1:0] actual, input logic [WIDTH-1:0] expected);
         if (expected !== actual) begin
             $error("Assertion failed [time=%0t]:expected=%b, actual=%b", $time, expected, actual);
+			$finish;
         end else begin
 			`ifdef TESTBENCH_PRINT_ASSERT_PASS
 				$display("Assertion passed [time=%0t]:expected=%b, actual=%b", $time, expected, actual);
 			`endif
         end
     endfunction
+
 	initial begin
-		reset = 1; clk = 1; #10 clk = 0; reset = 0;
-		assert_equal(q, {WIDTH{1'b0}});
 
 		for (int i = 0; i < 2**WIDTH; i++) begin
-			d = i;  reset = 0; clk = 0; #5; clk = 1; #5;
-			#100
-			assert_equal(q, i);
-
-			d = {WIDTH{1'b1}}; reset = 1; clk = 0; #5; clk = 1; #5;
-			#100
-			assert_equal(q, {WIDTH{1'b0}});
+			in_a = i;
+			in_b = {WIDTH{1'b1}};
+			sel_a = 1;
+			#10
+			assert_equal(out, i);
 		end
 
-		reset = 1; clk = 1; #10 clk = 0; reset = 0;
-		assert_equal(q, {WIDTH{1'b0}});
+		for (int i = 0; i < 2**WIDTH; i++) begin
+			in_a = {WIDTH{1'b0}};
+			in_b = i;
+			sel_a = 0;
+			#10
+			assert_equal(out, i);
+		end
 
-		$finish;
 	end
+
 
 	`ifdef TESTBENCH_PRINT_MONITOR
 		initial begin

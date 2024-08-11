@@ -1,19 +1,27 @@
-SRC = register.sv register_tb.sv
-EXE = simulation
+SRC = register.sv register_tb.sv mux.sv mux_tb.sv
+TOP = register_tb mux_tb
 LOG = compile_sim.log
 
-IVERILOG = iverilog
-IVERILOG_FLAGS = -g2012 -DTESTBENCH_PRINT_ASSERT_PASS
+# ModelSim commands
+VLOG = vlog
+VSIM = vsim
+VLIB = vlib
+VSIM_FLAGS = -c -do "run -all; exit"
 
 all: compile simulate
 
-compile:
-	$(IVERILOG) $(IVERILOG_FLAGS) -o $(EXE) $(SRC) | tee $(LOG)
+# Create the 'work' library before compiling
+compile: create_lib
+	$(VLOG) $(SRC) | tee $(LOG)
 
 simulate: compile
-	vvp $(EXE)
+	$(VSIM) $(VSIM_FLAGS) $(TOP) | tee -a $(LOG)
 
 clean:
-	rm -rf $(EXE) $(LOG)
+	rm -rf $(LOG) transcript vsim.wlf work
 
-.PHONY: all compile simulate clean
+# Create the 'work' library
+create_lib:
+	$(VLIB) work
+
+.PHONY: all compile simulate clean create_lib
