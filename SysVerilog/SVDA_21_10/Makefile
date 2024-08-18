@@ -1,5 +1,5 @@
-SRC = register.sv register_tb.sv mux.sv mux_tb.sv
-TOP = register_tb mux_tb
+SRC = typedefs.sv alu.sv alu_tb.sv #controller.sv controller_tb.sv counter.sv counter_tb.sv register.sv register_tb.sv mux.sv mux_tb.sv
+TOP = alu_tb #controller_tb counter_tb register_tb mux_tb
 LOG = compile_sim.log
 
 # ModelSim commands
@@ -8,7 +8,7 @@ VSIM = vsim
 VLIB = vlib
 VSIM_FLAGS = -c -do "run -all; exit"
 
-all: compile simulate
+all: clean compile
 
 # Create the 'work' library before compiling
 compile: create_lib
