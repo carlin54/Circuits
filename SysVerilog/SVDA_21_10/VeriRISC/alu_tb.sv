@@ -19,9 +19,7 @@ module alu_tb;
 
 	opcode_t opcode = HLT;
 
-	alu #(
-		.WIDTH(WIDTH)
-	)DUT(.out(out), .zero(zero), .clk(clk), .accum(accum),
+	alu DUT(.out(out), .zero(zero), .clk(clk), .accum(accum),
 		 	.data(data), .opcode(opcode));
 
 	task assert_equals(input [WIDTH:0] expected, input [WIDTH:0] actual);
@@ -85,7 +83,7 @@ module alu_tb;
 			i = i + 1;
 		end while (i != 0);
 
-		$display("ALU TEST PASSED");
+		$display("alu_tb passed");
 		$finish;
 	end
 
