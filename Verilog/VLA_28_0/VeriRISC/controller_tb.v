@@ -73,7 +73,7 @@ module controller_tb;
 		phase=PHASE_OP_FETCH; 	#100 expect(9'b000000000);
 		phase=PHASE_OP_ALU_OP; 	#100 expect(9'b000000000);
 		phase=PHASE_STORE; 		#100 expect(9'b000000000);
-		$display("PASS: (opcode, OP_HLT, %d)", opcode);
+		//$display("PASS: (opcode, OP_HLT, %d)", opcode);
 
 		opcode=OP_SKZ; zero=0;
 		phase=PHASE_INST_ADDR; 	#100 expect(9'b100000000);

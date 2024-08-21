@@ -1,4 +1,4 @@
-module Driver #(
+module driver #(
 	parameter DATA_WIDTH = 8
 )(
 	input wire [DATA_WIDTH-1:0] data_in,

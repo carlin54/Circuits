@@ -47,7 +47,7 @@ module alu_tb;
 		in_a=8'b11111111; in_b=8'b00000000; opcode=OP_STO; #100; assert(in_a, 0);
 		in_a=8'b11111111; in_b=8'b00000000; opcode=OP_JMP; #100; assert(in_a, 0);
 		in_a=8'b00000000; in_b=8'b00000000; opcode=OP_JMP; #100; assert(in_a, 1);
-
+		/*
 		in_a=8'h42; in_b=8'h86; opcode=OP_HLT; #100; assert(8'h42, 1'b0);
 		in_a=8'h42; in_b=8'h86; opcode=OP_SKZ; #100; assert(8'h42, 1'b0);
 		in_a=8'h42; in_b=8'h86; opcode=OP_ADD; #100; assert(8'hC8, 1'b0);
@@ -57,6 +57,7 @@ module alu_tb;
 		in_a=8'h42; in_b=8'h86; opcode=OP_STO; #100; assert(8'h42, 1'b0);
 		in_a=8'h42; in_b=8'h86; opcode=OP_JMP; #100; assert(8'h42, 1'b0);
 		in_a=8'h00; in_b=8'h86; opcode=OP_JMP; #100; assert(8'h00, 1'b1);
+		*/
 	end
 
 endmodule

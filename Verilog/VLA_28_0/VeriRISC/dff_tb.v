@@ -3,15 +3,12 @@ module dff_tb;
 	reg d;
     wire q;
 
-    // Instantiate the D Flip-Flop module
     dff DUT (
         .clk(clk),
         .d(d),
         .q(q)
     );
 
-
-    // Function to perform checks and display error
     task expect;
         input expected;
 		if (q !== expected) begin
