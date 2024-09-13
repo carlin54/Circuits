@@ -29,12 +29,11 @@ module md5_core_block (
 	generate
 		for (i = 0; i < 16; i = i + 1) begin : gen_M
 			always @(*) begin
-				// Flip all 32 bits of each word
 				M[i] = reverse_bits({
-					data_in[32*i + 7: 32*i],      // Byte 0 -> Byte 3 (LSB to MSB)
-					data_in[32*i + 15: 32*i + 8],  // Byte 1 -> Byte 2
-					data_in[32*i + 23: 32*i + 16], // Byte 2 -> Byte 1
-					data_in[32*i + 31: 32*i + 24]  // Byte 3 -> Byte 0 (MSB to LSB)
+					data_in[32*i + 7: 32*i],      	// Byte 0 -> Byte 3 (LSB to MSB)
+					data_in[32*i + 15: 32*i + 8],  	// Byte 1 -> Byte 2
+					data_in[32*i + 23: 32*i + 16], 	// Byte 2 -> Byte 1
+					data_in[32*i + 31: 32*i + 24]  	// Byte 3 -> Byte 0 (MSB to LSB)
 				});
 			end
 		end
@@ -94,11 +93,7 @@ module md5_core_block (
 
 	// MD5 core computation
 	always @(posedge clk or posedge reset) begin
-		$display("md5_core:clk");
-		$display("md5_core: prepare_next_hash:%b reset:%b, enable:%b", prepare_next_hash, reset, enable);
 		if (reset) begin
-			$display("md5_core: resetting");
-
 			A = 32'h67452301;
 			B = 32'hEFCDAB89;
 			C = 32'h98BADCFE;
@@ -114,9 +109,7 @@ module md5_core_block (
 		end else if (prepare_next_hash) begin
 			step = 0;
 			digest_valid = 0;
-			$display("md5_core: prepared for next hash");
 		end else if (enable && !digest_valid) begin
-			$display("OutS%d: A: %h, B: %h, C: %h, D: %h", (step/16) + 1, A_reg, B_reg, C_reg, D_reg);
 			case (step / 16)
 				2'b00: begin
 					F_result = (B_reg & C_reg) | (~B_reg & D_reg);  // F function
@@ -135,9 +128,7 @@ module md5_core_block (
 					message_index = (7 * step) % 16;
 				end
 			endcase
-
-			$display("md5_in: %h", data_in);
-
+			/*
 			// Display A_reg
 			$display("A_reg");
 			$display("%h", A_reg);
@@ -151,6 +142,7 @@ module md5_core_block (
 			$display("A_reg + F_result");
 			$display("%h", temp_A_F);
 
+
 			temp_A_F_M = temp_A_F + M[message_index];
 			$display("A_reg + F_result + M[step %% 16]");
 			$display("Result (%%32): %h", temp_A_F_M);
@@ -162,15 +154,18 @@ module md5_core_block (
 			$display("step modulo: %d", step % 16);
 			$display("step: %d", step);
 
+
 			// Display A_reg + F_result + M[step % 16] + K[step]
 			temp_A_F_M_K = temp_A_F_M + K[step];
 			$display("A_reg + F_result + M[step %% 16] + K[step]");
 			$display("%h", temp_A_F_M_K);
 
+
 			// Display (A_reg + F_result + M[step % 16] + K[step]) & 32'hFFFFFFFF
 			temp_sum = temp_A_F_M_K & 32'hFFFFFFFF;
 			$display("(A_reg + F_result + M[step %% 16] + K[step]) & 32'hFFFFFFFF");
 			$display("%h", temp_sum);
+
 
 			// Display (B_reg + left_rotate((A_reg + F_result + M[step % 16] + K[step]) & 32'hFFFFFFFF, s[step]))
 			rotated_sum = (temp_sum << s[step]) | (temp_sum >> (32 - s[step]));
@@ -179,10 +174,20 @@ module md5_core_block (
 			$display("(B_reg + left_rotate((A_reg + F_result + M[step %% 16] + K[step]) & 32'hFFFFFFFF, s[step]))");
 			$display("%h", temp_B_rotated);
 
+
+
 			// Display (B_reg + left_rotate((A_reg + F_result + M[step % 16] + K[step]) & 32'hFFFFFFFF, s[step])) & 32'hFFFFFFFF
 			F_result = temp_B_rotated & 32'hFFFFFFFF;
 			$display("(B_reg + left_rotate((A_reg + F_result + M[step %% 16] + K[step]) & 32'hFFFFFFFF, s[step])) & 32'hFFFFFFFF");
 			$display("%h", F_result);
+			*/
+
+			F_result =
+				(B_reg + (((((A_reg + F_result & 32'hFFFFFFFF) + M[message_index] + K[step]) & 32'hFFFFFFFF) << s[step])
+				| ((((A_reg + F_result & 32'hFFFFFFFF) + M[message_index] + K[step]) & 32'hFFFFFFFF) >> (32 - s[step])))) & 32'hFFFFFFFF;
+
+			$display("F_result: %h, temp_B_rotated: %h", F_result, temp_B_rotated);
+
 
 			A_reg = D_reg;
 			D_reg = C_reg;
