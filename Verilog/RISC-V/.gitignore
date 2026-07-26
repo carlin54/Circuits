@@ -1,0 +1,6 @@
+build/
+*.vvp
+*.vcd
+*.hex
+*.elf
+*.o

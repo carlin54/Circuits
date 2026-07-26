@@ -2,3 +2,9 @@
 *.log
 *.asv
 *.m
+
+# Xilinx/Vivado simulation artifacts
+xsim.dir/
+*.pb
+*.jou
+*.wdb

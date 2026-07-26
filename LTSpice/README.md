@@ -165,7 +165,7 @@ As outlined in [1, p411], the design procedure is as follows:
 ### Response
 ![Alt Text](./Biquad-Active-Filter/Biquad-Active-Filter-Response.png)
 
-## Active Low-Pass Buttersworth Filter
+## Active Low-Pass Butterworth Filter
 As described in [1, p406], an active low-pass Butterworth filter typically incorporates operational amplifiers to achieve a maximally flat frequency response in the passband. This configuration utilizes a series of capacitors and resistors to form a filter circuit that attenuates higher frequencies above a certain cutoff. The design ensures minimal ripple in the passband, maintaining a smooth response across the frequency spectrum.
 
 Cutoff Frequency:
@@ -187,10 +187,10 @@ In the active Butterworth low-pass filter configuration, components are related 
 
 
 
-![Alt Text](./Active-Low-Pass-Buttersworth-Filter/Active-Low-Pass-Buttersworth-Filter.png)
+![Alt Text](./Active-Low-Pass-Butterworth-Filter/Active-Low-Pass-Butterworth-Filter.png)
 
 ### Response
-![Alt Text](./Active-Low-Pass-Buttersworth-Filter/Active-Low-Pass-Buttersworth-Filter-Vout.png)
+![Alt Text](./Active-Low-Pass-Butterworth-Filter/Active-Low-Pass-Butterworth-Filter-Vout.png)
 
 ## 555 Sawtooth Oscillator
 As explained by [1, p430], the 555 sawtooth oscillator uses the 555 timer IC to generate a repeating sawtooth waveform. This configuration exploits the charging and discharging cycles of a capacitor through the 555 timer, providing an adjustable frequency and amplitude.
@@ -335,8 +335,8 @@ $$I_{L_{\text{peak}}} = I_L \cdot (1 - D) + \frac{V_{\text{out}}}{L \cdot f_s}$$
 ### Response
 ![Alt Text](./Boost-Converter/Response.png)
 
-## Wein-Bridge Oscillator
-A Wein Bridge Oscillator is an electronic circuit that generates sinusoidal waves using a bridge configuration of resistors and capacitors, commonly employed in audio and low-frequency signal applications.
+## Wien-Bridge Oscillator
+A Wien Bridge Oscillator is an electronic circuit that generates sinusoidal waves using a bridge configuration of resistors and capacitors, commonly employed in audio and low-frequency signal applications.
 
 ### Equations
 Frequency of Oscillation:
@@ -352,10 +352,10 @@ Calculate $ $R_b$ $:
 $$R_b = \frac{R_f}{2}$$
 
 ### Circuit
-![Alt Text](./Wein-Bridge-Oscillator/Wein-Bridge-Oscillator.png)
+![Alt Text](./Wien-Bridge-Oscillator/Wien-Bridge-Oscillator.png)
 
 ### Response
-![Alt Text](./Wein-Bridge-Oscillator/Vout.png)
+![Alt Text](./Wien-Bridge-Oscillator/Vout.png)
 
 
 # References

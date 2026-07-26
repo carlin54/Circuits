@@ -1,0 +1,21 @@
+* AD633 Four-Quadrant Analog Multiplier Macromodel
+* Transfer function: W = (X1-X2)(Y1-Y2)/10V + Z
+* Pins: X1 X2 Y1 Y2 Z W VP VN
+* Key specs: BW=1MHz, Output swing=+/-11V @ +/-15V supply
+*
+.SUBCKT AD633 X1 X2 Y1 Y2 Z W VP VN
+* Multiplier core with /10V scaling
+B1 mult_out 0 V = (V(X1)-V(X2))*(V(Y1)-V(Y2))/10 + V(Z)
+* Bandwidth limiting (single pole at 1MHz)
+R1 mult_out filt 1k
+C1 filt 0 159.15e-12
+* Output buffer
+Eout out_int 0 filt 0 1
+Rout out_int W 75
+* Output clamping to +/-11V
+D1 W clamp_hi DCLAMP
+D2 clamp_lo W DCLAMP
+V1 VP clamp_hi 4
+V2 clamp_lo VN 4
+.MODEL DCLAMP D(IS=1e-12 RS=1 BV=100)
+.ENDS AD633

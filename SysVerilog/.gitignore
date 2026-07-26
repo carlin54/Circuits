@@ -1,3 +1,13 @@
 *.log
 **/work/
 **transcript**
+
+# Compiled simulation binaries
+**/simulation
+*.vstf
+
+# Duplicate test data (originals in VeriRISC/)
+**/sv_src/files/*.dat
+
+# Copyrighted course materials — DO NOT commit
+**/SysVlogDesVer_21_10/

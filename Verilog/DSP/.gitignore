@@ -1,0 +1,37 @@
+# Simulation outputs
+sim/
+sim_build*/
+*.vcd
+*.fst
+results.xml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+*.egg
+.pytest_cache/
+.venv/
+venv/
+
+# Synthesis outputs
+synth/*.json
+synth/*.config
+synth/*.bit
+synth/*.svf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Compiled binaries
+a.out
+
+# OS
+.DS_Store
+Thumbs.db

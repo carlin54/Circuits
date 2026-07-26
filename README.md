@@ -1,32 +1,23 @@
 # Circuits
-This repository contains a collection of analog and digital circuits I've designed and implemented. It includes simulations and designs using Falstad, LTSpice, Verilog, and SystemVerilog. Each folder contains projects related to specific technologies or applications.
 
-## Falstad
-- Linear Feedback Shift Register
+A collection of digital and analog circuit designs spanning processor architecture, DSP, and analog simulation.
 
-## LTSpice
-- Current Mirror
-- NPN Colpitts Oscillator
-- NPN Voltage Controlled Gain Amplifier
-- NE555 Voltage Controlled Pulse Width Oscillator
-- Center-Tapped Full-Wave Rectifier
-- Biquad Active Filter
-- Active Low-Pass Butterworth Filter
-- 555 Sawtooth Oscillator
-- Passive Twin Notch Filter
-- Differential Amplifier
-- Summing Amplifier
-- Buck-Boost Converter
-- Wein-Bridge Oscillator
+## Highlights
 
-## Verilog
-- **GPS**
-  - *L1 C/A Code Generator*: Implements the GPS L1 C/A (Coarse/Acquisition) code generator.
-- **HASH**
-  - *MD5*: Verilog implementation of the MD5 (Message-Digest Algorithm 5) hash function.
-- **VLA 28_0**
-  - *VeriRISC*: A very reduced instruction set processor.
+- **RV64IMAFD Processor** — Multi-cycle RISC-V processor supporting 156 instructions, with a 4-level verification infrastructure (unit → ISA → architecture compliance → C integration)
+- **DSP IP Library** — 12-block Verilog DSP library (FFT, FIR, IIR, CORDIC, NCO, decimator, interpolator) with a guitar amplifier FPGA application
+- **Chaotic Attractor Circuits** — Analog circuit implementations of 10 chaotic attractors, validated against scipy ODE solvers
 
-## SystemVerilog
-- **SVDA 21_10**
-  - *VeriRISC*: A very reduced instruction set processor in SystemVerilog.
+## Repository Structure
+
+| Directory | Description |
+|-----------|-------------|
+| [Verilog/](Verilog/) | Verilog HDL projects — RISC-V processor, DSP library, GPS, MD5, and more |
+| [SysVerilog/](SysVerilog/) | SystemVerilog design and verification — VeriRISC CPU with testbenches |
+| [NGSpice/](NGSpice/) | ngspice-based analog circuit simulations |
+| [LTSpice/](LTSpice/) | LTSpice analog circuit designs with equations and analysis |
+| [Falstad/](Falstad/) | Falstad online simulator circuits |
+
+## Technologies
+
+Verilog, SystemVerilog, Python, ngspice, LTSpice, Icarus Verilog, cocotb, Yosys, Xilinx Vivado

@@ -1,0 +1,23 @@
+* LT1057 Op-Amp Behavioral Macromodel
+* Pins: IN+ IN- VCC VEE OUT
+* Key specs: GBW=5MHz, Slew=15V/us, Avol=200k, Rin=1T, Rout=75
+*
+.SUBCKT LT1057 INP INN VCC VEE OUT
+* Input stage - high impedance differential pair
+Rin INP INN 1e12
+* Differential gain with dominant pole at ~25Hz (GBW/Avol = 5e6/2e5)
+Gm1 0 int1 INP INN 1e-3
+R1 int1 0 200e6
+C1 int1 0 31.83e-12
+* Output stage with finite output resistance
+Eout out_int 0 int1 0 1
+Rout out_int OUT 75
+* Output voltage clamping to supply rails (with ~1.5V dropout)
+D1 OUT clamp_hi DCLAMP
+D2 clamp_lo OUT DCLAMP
+V1 VCC clamp_hi 1.5
+V2 clamp_lo VEE 1.5
+.MODEL DCLAMP D(IS=1e-12 RS=1 BV=100)
+* Supply current (quiescent ~5mA)
+Icc VCC VEE 5e-3
+.ENDS LT1057

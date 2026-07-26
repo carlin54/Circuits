@@ -1,10 +1,26 @@
-# Logfile
+# Simulation outputs
 *.log
-
-# Simulation Outputs
 *.raw
 *.fft
-
-# Netlist
 *.net
 
+# Editor/IDE
+.vscode/
+**/.claude/
+*.swp
+*~
+
+# Backup/draft files
+*.old
+*.bak
+*.original
+Draft*.asc
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.pytest_cache/
+
+# Simulation artifacts
+*.vstf
